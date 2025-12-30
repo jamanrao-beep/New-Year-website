@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Happy New Year ✨</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      :root {
+        --bg: #0b0b22;
+        --bg-soft: rgba(255, 255, 255, 0.06);
+        --accent: #f7b2d9;
+        --accent-soft: #fcdff0;
+        --accent-2: #c3b5ff;
+        --accent-gold: #ffd98e;
+        --text-main: #ffffff;
+        --text-soft: #dad7ff;
+        --danger: #ff7b7b;
+        --radius-lg: 22px;
+        --shadow-soft: 0 18px 40px rgba(8, 5, 35, 0.7);
+        --blur-bg: blur(16px);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+          sans-serif;
+        background: radial-gradient(
+          circle at top left,
+          #3b1c5b 0,
+          #0b0b22 40%,
+          #050514 100%
+        );
+        color: var(--text-main);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        padding: 24px 14px 40px;
+      }
+
+      .page {
+        width: 100%;
+        max-width: 900px;
+        position: relative;
+        isolation: isolate;
+      }
+
+      /* floating shapes */
+      .orb {
+        position: fixed;
+        width: 220px;
+        height: 220px;
+        border-radius: 50%;
+        filter: blur(40px);
+        opacity: 0.55;
+        z-index: -1;
+      }
+      .orb.orb-1 {
+        top: -60px;
+        left: -40px;
+        background: radial-gradient(circle, #ffb6e3, transparent 60%);
+      }
+      .orb.orb-2 {
+        bottom: -40px;
+        right: -40px;
+        background: radial-gradient(circle, #b99bff, transparent 60%);
+      }
+
+      section {
+        backdrop-filter: var(--blur-bg);
+        -webkit-backdrop-filter: var(--blur-bg);
+        background: linear-gradient(
+          140deg,
+          rgba(255, 255, 255, 0.12),
+          rgba(255, 255, 255, 0.02)
+        );
+        border-radius: var(--radius-lg);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        box-shadow: var(--shadow-soft);
+        padding: 22px 20px 20px;
+        margin-bottom: 18px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      section::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          circle at top left,
+          rgba(255, 255, 255, 0.18),
+          transparent 55%
+        );
+        opacity: 0.14;
+        pointer-events: none;
+      }
+
+      h1,
+      h2 {
+        font-weight: 700;
+        letter-spacing: 0.03em;
+      }
+
+      h1 {
+        font-size: 1.9rem;
+        margin-bottom: 8px;
+      }
+
+      h2 {
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        color: var(--accent-soft);
+      }
+
+      p,
+      li,
+      button,
+      input,
+      span {
+        font-size: 0.95rem;
+        line-height: 1.6;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 10px;
+        border-radius: 999px;
+        background: radial-gradient(
+          circle at top left,
+          rgba(247, 178, 217, 0.25),
+          rgba(110, 80, 200, 0.25)
+        );
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        color: var(--accent-soft);
+        font-size: 0.8rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+      }
+
+      .pill-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: radial-gradient(circle, #ffd98e, #ff8ac7);
+        box-shadow: 0 0 12px rgba(255, 207, 135, 0.9);
+      }
+
+      .muted {
+        color: var(--text-soft);
+      }
+
+      .highlight {
+        color: var(--accent-gold);
+        font-weight: 600;
+      }
+
+      .hint-cards {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      @media (min-width: 640px) {
+        .hint-cards {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+      }
+
+      .hint-card {
+        border-radius: 18px;
+        padding: 10px 11px;
+        background: radial-gradient(
+          circle at top,
+          rgba(255, 182, 227, 0.25),
+          rgba(48, 30, 112, 0.9)
+        );
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        box-shadow: 0 10px 25px rgba(3, 0, 30, 0.7);
+        position: relative;
+      }
+
+      .hint-chip {
+        display: inline-block;
+        padding: 2px 9px;
+        border-radius: 999px;
+        font-size: 0.75rem;
+        background: rgba(5, 1, 25, 0.7);
+        border: 1px solid rgba(255, 255, 255, 0.32);
+        margin-bottom: 4px;
+        color: #faddee;
+      }
+
+      .hint-card p {
+        font-size: 0.9rem;
+      }
+
+      .quiz-header-line {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .quiz-step {
+        font-size: 0.82rem;
+        color: var(--accent-soft);
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 5px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.06);
+        overflow: hidden;
+        margin-top: 8px;
+      }
+
+      .progress-fill {
+        height: 100%;
+        width: 0%;
+        background: linear-gradient(90deg, #ffbde3, #ffd98e, #c3b5ff);
+        transition: width 0.35s ease;
+      }
+
+      .quiz-question {
+        margin-top: 14px;
+        margin-bottom: 12px;
+        font-weight: 500;
+      }
+
+      .quiz-options {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 8px;
+      }
+
+      .quiz-option {
+        padding: 9px 10px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        background: rgba(4, 0, 24, 0.8);
+        color: var(--text-soft);
+        cursor: pointer;
+        text-align: left;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: transform 0.12s ease, box-shadow 0.12s ease,
+          border-color 0.12s ease, background 0.12s ease;
+      }
+
+      .quiz-option span.bullet {
+        width: 18px;
+        height: 18px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.75rem;
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .quiz-option:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 10px 22px rgba(5, 0, 35, 0.9);
+        border-color: rgba(255, 217, 142, 0.8);
+        background: linear-gradient(
+          90deg,
+          rgba(255, 182, 227, 0.18),
+          rgba(64, 38, 132, 0.95)
+        );
+      }
+
+      .quiz-option.selected {
+        border-color: rgba(255, 217, 142, 0.95);
+        background: linear-gradient(
+          90deg,
+          rgba(255, 182, 227, 0.3),
+          rgba(86, 53, 172, 0.98)
+        );
+        box-shadow: 0 12px 26px rgba(3, 0, 20, 0.9);
+        color: #fff7fb;
+      }
+
+      .quiz-response {
+        margin-top: 12px;
+        font-size: 0.9rem;
+        color: var(--accent-soft);
+      }
+
+      .quiz-next {
+        margin-top: 14px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 7px 13px 7px 11px;
+        border-radius: 999px;
+        background: linear-gradient(120deg, #ffb6e3, #ffd98e, #c3b5ff);
+        border: none;
+        cursor: pointer;
+        color: #2b1138;
+        font-size: 0.88rem;
+        font-weight: 600;
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.55);
+      }
+
+      .quiz-next[disabled] {
+        opacity: 0.4;
+        cursor: default;
+        box-shadow: none;
+      }
+
+      .future-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 12px;
+      }
+
+      .future-tag {
+        border-radius: 999px;
+        padding: 5px 10px;
+        font-size: 0.85rem;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        background: rgba(3, 0, 25, 0.8);
+        color: var(--accent-soft);
+        cursor: pointer;
+        transition: background 0.1s ease, transform 0.1s ease,
+          box-shadow 0.1s ease, border-color 0.1s ease;
+      }
+
+      .future-tag.selected {
+        background: linear-gradient(
+          120deg,
+          rgba(255, 182, 227, 0.3),
+          rgba(86, 53, 172, 0.98)
+        );
+        border-color: rgba(255, 217, 142, 0.9);
+        box-shadow: 0 10px 22px rgba(2, 0, 20, 0.9);
+        transform: translateY(-1px);
+      }
+
+      .birthday-wrap {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 12px;
+      }
+
+      .birthday-input-row {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      input[type="text"] {
+        flex: 1 1 150px;
+        min-width: 0;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: rgba(4, 0, 26, 0.8);
+        padding: 8px 12px;
+        color: var(--text-main);
+        outline: none;
+        font-size: 0.9rem;
+      }
+
+      input[type="text"]::placeholder {
+        color: rgba(218, 215, 255, 0.6);
+      }
+
+      .birthday-btn {
+        border-radius: 999px;
+        border: none;
+        padding: 8px 14px;
+        background: linear-gradient(120deg, #ffb6e3, #ffd98e, #c3b5ff);
+        color: #2a1238;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.55);
+        white-space: nowrap;
+      }
+
+      .birthday-note {
+        font-size: 0.88rem;
+        color: var(--accent-soft);
+        min-height: 1.2em;
+      }
+
+      .tiny-note {
+        font-size: 0.75rem;
+        color: rgba(218, 215, 255, 0.7);
+        margin-top: 6px;
+      }
+
+      .signature {
+        font-size: 0.85rem;
+        color: rgba(218, 215, 255, 0.75);
+        margin-top: 10px;
+      }
+
+      .signature span {
+        color: var(--accent-soft);
+      }
+
+      @media (min-width: 768px) {
+        body {
+          padding-top: 38px;
+        }
+        section {
+          padding: 24px 24px 22px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <main class="page">
+      <!-- HERO -->
+      <section>
+        <div class="pill">
+          <span class="pill-dot"></span>
+          A small New Year thing
+        </div>
+        <h1>Happy New Year ✨</h1>
+        <p class="muted" style="margin-top: 6px">
+          Out of everyone this year, <span class="highlight">you</span> were
+          definitely one of the nicest surprises.
+        </p>
+        <p class="muted" style="margin-top: 4px">
+          So this is just a tiny page for you, before 2026 steals all the
+          attention.
+        </p>
+      </section>
+
+      <!-- HINTS ABOUT THE YEAR -->
+      <section>
+        <h2>This year felt better because…</h2>
+        <p class="muted">
+          Not because of big dramatic moments, but because of small things and a
+          few specific people.
+        </p>
+
+        <div class="hint-cards">
+          <div class="hint-card">
+            <div class="hint-chip">Little moments</div>
+            <p>
+              Random conversations that made long days feel a bit shorter than
+              they actually were.
+            </p>
+          </div>
+          <div class="hint-card">
+            <div class="hint-chip">The vibe</div>
+            <p>
+              That one person who somehow makes everything feel lighter, even on
+              the most random days.
+            </p>
+          </div>
+          <div class="hint-card">
+            <div class="hint-chip">If this year was a person</div>
+            <p>
+              It would be the person who accidentally pops into my mind and
+              still manages to make me smile.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- QUIZ -->
+      <section id="quiz-section">
+        <div class="quiz-header-line">
+          <h2>Your tiny 2025 quiz</h2>
+          <span class="quiz-step" id="quiz-step-label">1 / 4</span>
+        </div>
+        <p class="muted">
+          No right or wrong answers, just me being curious about your version of
+          this year.
+        </p>
+
+        <div class="progress-bar">
+          <div class="progress-fill" id="quiz-progress"></div>
+        </div>
+
+        <div id="quiz-content">
+          <!-- JS will fill question + options here -->
+        </div>
+      </section>
+
+      <!-- FUTURE WISHES -->
+      <section>
+        <h2>Things 2026 should have more of</h2>
+        <p class="muted">
+          If you could choose, what do you want this year to feel full of?
+        </p>
+
+        <div class="future-tags" id="future-tags">
+          <button class="future-tag" type="button">Peaceful days 🌿</button>
+          <button class="future-tag" type="button">
+            Unexpected laughter 😂
+          </button>
+          <button class="future-tag" type="button">Good chaos ✨</button>
+          <button class="future-tag" type="button">New memories 📸</button>
+          <button class="future-tag" type="button">
+            Random late night talks 🌙
+          </button>
+        </div>
+
+        <p class="tiny-note" id="future-note"></p>
+      </section>
+
+      <!-- BIRTHDAY -->
+      <section>
+        <h2>One small favour?</h2>
+        <p class="muted">
+          I’m trying not to be that person who forgets important days and then
+          regrets it later.
+        </p>
+        <p class="muted" style="margin-top: 4px">
+          Will you tell me your birthday so I can actually save it this time?
+        </p>
+
+        <div class="birthday-wrap">
+          <div class="birthday-input-row">
+            <input
+              id="birthday-input"
+              type="text"
+              placeholder="Your birthday (DD-MM or DD/MM)"
+              autocomplete="off"
+            />
+            <button class="birthday-btn" id="birthday-btn" type="button">
+              Save it ✨
+            </button>
+          </div>
+          <p class="birthday-note" id="birthday-note"></p>
+          <p class="tiny-note">
+            (No pressure, but if you tell me, I officially owe you something
+            special on that date.)
+          </p>
+        </div>
+
+        <p class="signature">
+          Made this little page just for <span>you</span>.
+        </p>
+      </section>
+    </main>
+
+    <script>
+      /* QUIZ LOGIC */
+      const quizData = [
+        {
+          question:
+            "If you had to describe your 2025 in one word, what would it be?",
+          options: [
+            { label: "A", text: "Chaotic but kind of fun" },
+            { label: "B", text: "Calm and slow" },
+            { label: "C", text: "Full-on character development mode" },
+            { label: "D", text: "A mix of everything" },
+          ],
+          responses: {
+            A: "Honestly, the best stories start with a little chaos.",
+            B: "Low dramA, high peace. That’s secretly elite.",
+            C: "Main character era unlocked. Not easy, but powerful.",
+            D: "You basically collected the whole experience pack.",
+          },
+        },
+        {
+          question: "Your comfort vibe this year was more like…",
+          options: [
+            { label: "A", text: "Music + earphones" },
+            { label: "B", text: "Calls / random talks" },
+            { label: "C", text: "Books / shows" },
+            { label: "D", text: "Just scrolling and overthinking" },
+          ],
+          responses: {
+            A: "The right playlist can literally fix a whole day.",
+            B: "The right person on call can fix more than Wi‑Fi.",
+            C: "Escaping into stories is a top-tier survival skill.",
+            D: "At least the scrolling kept your thumbs fit.",
+          },
+        },
+        {
+          question: "Highlight of this year, if you had to pick?",
+          options: [
+            { label: "A", text: "New people I met 👀" },
+            { label: "B", text: "New things I tried" },
+            { label: "C", text: "Just surviving everything" },
+            { label: "D", text: "Moments that felt unexpectedly nice" },
+          ],
+          responses: {
+            A: "Some people really walk in like plot twists.",
+            B: "Trying new things is low-key brave, even if no one claps.",
+            C: "Survival is also a flex. No one says it, but it is.",
+            D: "Unexpectedly nice moments are the real favourites.",
+          },
+        },
+        {
+          question: "For 2026, you secretly want…",
+          options: [
+            { label: "A", text: "More peace and stability" },
+            { label: "B", text: "More laughter & inside jokes" },
+            { label: "C", text: "More adventures & risks" },
+            { label: "D", text: "More soft, calm days with the right people" },
+          ],
+          responses: {
+            A: "Peace is seriously underrated and very attractive.",
+            B: "The right people + stupid jokes = best combination.",
+            C: "Okay, main character energy continues.",
+            D: "Right people + calm days is kind of the dream.",
+          },
+        },
+      ];
+
+      const quizContent = document.getElementById("quiz-content");
+      const quizStepLabel = document.getElementById("quiz-step-label");
+      const quizProgress = document.getElementById("quiz-progress");
+
+      let currentQuestionIndex = 0;
+      let hasSelected = false;
+      let selectedResponse = "";
+
+      function renderQuestion() {
+        const q = quizData[currentQuestionIndex];
+        hasSelected = false;
+        selectedResponse = "";
+
+        quizStepLabel.textContent =
+          currentQuestionIndex + 1 + " / " + quizData.length;
+
+        const progressPercent = (currentQuestionIndex / quizData.length) * 100;
+        quizProgress.style.width = progressPercent + "%";
+
+        quizContent.innerHTML = `
+        <p class="quiz-question">${q.question}</p>
+        <div class="quiz-options">
+          ${q.options
+            .map(
+              (opt) => `
+          <button type="button" class="quiz-option" data-label="${opt.label}">
+            <span class="bullet">${opt.label}</span>
+            <span>${opt.text}</span>
+          </button>
+        `
+            )
+            .join("")}
+        </div>
+        <p class="quiz-response" id="quiz-response"></p>
+        <button class="quiz-next" id="quiz-next" type="button" disabled>
+          Next
+          <span>➜</span>
+        </button>
+      `;
+
+        const optionButtons = quizContent.querySelectorAll(".quiz-option");
+        const responseEl = document.getElementById("quiz-response");
+        const nextBtn = document.getElementById("quiz-next");
+
+        optionButtons.forEach((btn) => {
+          btn.addEventListener("click", () => {
+            optionButtons.forEach((b) => b.classList.remove("selected"));
+            btn.classList.add("selected");
+
+            const label = btn.dataset.label;
+            selectedResponse = q.responses[label] || "";
+            responseEl.textContent = selectedResponse;
+            hasSelected = true;
+            nextBtn.disabled = false;
+
+            // small scale effect
+            btn.style.transform = "translateY(-2px) scale(1.01)";
+            setTimeout(() => {
+              btn.style.transform = "";
+            }, 130);
+          });
+        });
+
+        nextBtn.addEventListener("click", () => {
+          if (!hasSelected) return;
+
+          if (currentQuestionIndex < quizData.length - 1) {
+            currentQuestionIndex++;
+            renderQuestion();
+          } else {
+            // finished
+            quizProgress.style.width = "100%";
+            showQuizEnd();
+          }
+        });
+      }
+
+      function showQuizEnd() {
+        quizStepLabel.textContent = "Done ✨";
+        quizContent.innerHTML = `
+        <p class="quiz-question">
+          That’s it. Thanks for answering honestly (or at least stylishly).
+        </p>
+        <p class="quiz-response">
+          Now I officially know a tiny bit more about how your year looked from your side.
+        </p>
+      `;
+      }
+
+      renderQuestion();
+
+      /* FUTURE TAGS */
+      const futureTagsContainer = document.getElementById("future-tags");
+      const futureNote = document.getElementById("future-note");
+
+      futureTagsContainer.querySelectorAll(".future-tag").forEach((tag) => {
+        tag.addEventListener("click", () => {
+          tag.classList.toggle("selected");
+
+          const selectedTexts = Array.from(
+            futureTagsContainer.querySelectorAll(".future-tag.selected")
+          ).map((t) => t.textContent.trim());
+
+          if (selectedTexts.length === 0) {
+            futureNote.textContent = "";
+          } else if (selectedTexts.length === 1) {
+            futureNote.textContent =
+              'If 2026 actually feels like "' +
+              selectedTexts[0] +
+              '", that’s already a win.';
+          } else {
+            futureNote.textContent =
+              "If 2026 matches even half of what you just picked, it’s going to be a good story.";
+          }
+        });
+      });
+
+      /* BIRTHDAY INPUT */
+      const birthdayInput = document.getElementById("birthday-input");
+      const birthdayBtn = document.getElementById("birthday-btn");
+      const birthdayNote = document.getElementById("birthday-note");
+
+      birthdayBtn.addEventListener("click", () => {
+        const value = birthdayInput.value.trim();
+
+        if (!value) {
+          birthdayNote.textContent = "At least give me a hint, na.";
+          birthdayNote.style.color = "var(--danger)";
+          return;
+        }
+
+        birthdayNote.style.color = "var(--accent-soft)";
+        birthdayNote.textContent =
+          "Got it. Now I am officially not allowed to forget " +
+          value +
+          " anymore.";
+        birthdayInput.disabled = true;
+        birthdayBtn.disabled = true;
+        birthdayBtn.textContent = "Saved ✓";
+      });
+    </script>
+  </body>
+</html>

@@ -180,7 +180,7 @@ futureTagsContainer.querySelectorAll(".future-tag").forEach((tag) => {
   });
 });
 
-/* BIRTHDAY INPUT */
+/* BIRTHDAY INPUT WITH SILENT EMAIL SEND */
 const birthdayInput = document.getElementById("birthday-input");
 const birthdayBtn = document.getElementById("birthday-btn");
 const birthdayNote = document.getElementById("birthday-note");
@@ -194,10 +194,29 @@ birthdayBtn.addEventListener("click", () => {
     return;
   }
 
-  birthdayNote.style.color = "var(--accent-soft)";
-  birthdayNote.textContent =
-    "Got it. Now I am officially not allowed to forget " + value + " anymore.";
-  birthdayInput.disabled = true;
+  // 1. Immediate UI Feedback
   birthdayBtn.disabled = true;
-  birthdayBtn.textContent = "Saved ✓";
+  birthdayBtn.textContent = "Saving..."; // Subtle "working" state
+  birthdayNote.style.color = "var(--accent-soft)";
+  birthdayNote.textContent = "Remembering that for you...";
+
+  // 2. Prepare Data for Email
+  const templateParams = {
+    birthday_val: value // This sends the date to your email
+  };
+
+  // 3. Send the Email behind the scenes
+  emailjs.send('service_phbs98i', 'template_c3id7t4', templateParams)
+    .then(function() {
+       // 4. Success UI
+       birthdayNote.textContent = "Got it. Now I am officially not allowed to forget " + value + " anymore.";
+       birthdayInput.disabled = true;
+       birthdayBtn.textContent = "Saved ✓";
+    }, function(error) {
+       // 5. Silent Fallback (If email fails, she won't know, so the vibe isn't ruined)
+       console.log('Error sending:', error);
+       birthdayNote.textContent = "Got it. Now I am officially not allowed to forget " + value + " anymore.";
+       birthdayInput.disabled = true;
+       birthdayBtn.textContent = "Saved ✓";
+    });
 });
